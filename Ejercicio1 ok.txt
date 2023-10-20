@@ -1,0 +1,43 @@
+#Ejercicio 1:
+#Dado el archivo Ejercicio1.txt, crear el siguiente programa en pyhton que ejecute lo siguiente:
+#1. Abra el archivo en modo lectura
+#2. Entregue como resultado el numero de vocales descritas en el archivo (Ejemplo a=70 e= 87 ..etc)
+#3. Incluir manejo de excepciones en donde se cierre el archivo en caso de algun error
+#paso1
+try:
+    with open('C:\Ejercicio1.txt', 'r',encoding='utf-8', errors='ignore') as ejercicio1:
+        texto = ejercicio1.read()
+    #paso2
+    #definir variables
+    cont_total_vocales = 0 #contador el numero de vocales
+    vocales = ['a', 'e', 'i', 'o', 'u'] #lista de vocales
+    #tener todas las vocales en minusculas para que apliqueel conteo correcto
+    texto = texto.lower()
+    #utilizar un bucle para ir contando el total de vocales
+    for busca in texto:
+        if busca in vocales:
+            cont_total_vocales += 1
+    print(f'El archivo contiene un total de: {cont_total_vocales} vocales.')      
+    #utilizo un diccionario para contar por cada vocal el numero de caracteres que tiene el texto
+    cont_por_vocal = {'a': 0, 'e': 0, 'i': 0, 'o': 0, 'u': 0}
+    #bucle para ir contando
+    for busca_vocal in texto:
+        try:
+            if busca_vocal in cont_por_vocal:
+                cont_por_vocal[busca_vocal] += 1
+        except Exception as e:
+             print(f"Error inesperado: {e}")
+     #imprimir el total por vocal
+    for total_por_vocal, cantidad in cont_por_vocal.items():
+        try:
+            if cantidad==0:
+                print(f'No existe ninguna "{total_por_vocal}"')
+            else:    
+                print(f'Total de "{total_por_vocal}": {cantidad}')
+        except Exception as e:
+                print(f"Error inesperado: {e}")
+    ejercicio1.close
+except FileNotFoundError:
+        print(f"El archivo no existe ")
+except Exception as e:
+        print(f"Error inesperado en el proceso: {e}")          
